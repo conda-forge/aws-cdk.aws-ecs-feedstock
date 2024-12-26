@@ -6,22 +6,22 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/aws-cdk.aws-ecs-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/aws-cdk.aws-ecs-{{ version }}.tar.gz
   sha256: 9d324cdd016141560ce59b3924ba93327d15ed4f9efb179bceae18c157f9a199
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.7
+    - python {{ python_min }}
     - setuptools >=67.3.2,<67.4.dev0
     - wheel >=0.40,<1.dev0
     - pip
   run:
-    - python >=3.7
+    - python >={{ python_min }}
     - aws-cdk.aws-applicationautoscaling ==1.204.0
     - aws-cdk.aws-autoscaling-hooktargets ==1.204.0
     - aws-cdk.aws-autoscaling ==1.204.0
@@ -60,6 +60,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/aws/aws-cdk
